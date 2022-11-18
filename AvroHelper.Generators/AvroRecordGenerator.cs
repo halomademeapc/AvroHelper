@@ -1,0 +1,223 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Diagnostics;
+using System.Linq;
+using System.Text;
+using System.Text.Json.Nodes;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Text;
+
+namespace AvroHelper.Generators;
+
+[Generator]
+public class AvroRecordGenerator : IIncrementalGenerator
+{
+    private static readonly Type ClassAttributeType = typeof(GeneratedAvroRecordAttribute);
+    private static readonly Type PropertyAttributeType = typeof(AvroColumnAttribute);
+
+    public void Initialize(IncrementalGeneratorInitializationContext context)
+    {
+        var classDeclarations = context.SyntaxProvider.ForAttributeWithMetadataName(
+            ClassAttributeType.FullName!,
+            static (s, _) => s is ClassDeclarationSyntax c && c.AttributeLists.Any(),
+            static (ctx, _) => (ClassDeclarationSyntax)ctx.TargetNode);
+
+        IncrementalValueProvider<(Compilation Compilation, ImmutableArray<ClassDeclarationSyntax>Syntaxes)>
+            compilationAndClasses = context.CompilationProvider.Combine(classDeclarations.Collect());
+
+        context.RegisterSourceOutput(compilationAndClasses,
+            static (spc, source) => Execute(source.Compilation, source.Syntaxes, spc));
+
+        static void Execute(Compilation compilation, ImmutableArray<ClassDeclarationSyntax> classes,
+            SourceProductionContext context)
+        {
+            try
+            {
+                if (classes.IsDefaultOrEmpty)
+                    return;
+
+                var distinctClasses = classes.Distinct();
+
+                var classesToGenerate =
+                    GetTypesToGenerate(compilation, distinctClasses, context);
+
+                foreach (var classToGenerate in classesToGenerate)
+                {
+                    var result = GeneratePartialClass(classToGenerate);
+                    context.AddSource($"{classToGenerate.RowClass.Name}.g.cs", SourceText.From(result, Encoding.UTF8));
+                }
+            }
+            catch (Exception e)
+            {
+                var descriptor = new DiagnosticDescriptor(id: "BQD001",
+                    title: "Error creating bigquery mapper",
+                    messageFormat: "{0} {1}",
+                    category: "BigQueryMapperGenerator",
+                    DiagnosticSeverity.Error,
+                    isEnabledByDefault: true);
+
+                context.ReportDiagnostic(Diagnostic.Create(descriptor, null, e.Message, e.StackTrace));
+            }
+        }
+    }
+
+    static IEnumerable<ClassToGenerate> GetTypesToGenerate(Compilation compilation,
+        IEnumerable<ClassDeclarationSyntax> classes,
+        SourceProductionContext ctx)
+    {
+        var propertyAttribute = compilation.GetTypeByMetadataName(PropertyAttributeType.FullName!);
+
+        foreach (var @class in classes)
+        {
+            Debug.WriteLine($"Checking class {@class}");
+            ctx.CancellationToken.ThrowIfCancellationRequested();
+
+            var semanticModel = compilation.GetSemanticModel(@class.SyntaxTree);
+            if (semanticModel.GetDeclaredSymbol(@class) is not INamedTypeSymbol classSymbol)
+                continue;
+
+            var info = new ClassToGenerate(classSymbol, new());
+            foreach (var member in classSymbol.GetMembers())
+            {
+                if (member is IPropertySymbol propertySymbol)
+                {
+                    var attributes = propertySymbol.GetAttributes();
+                    var columnAttribute = attributes.FirstOrDefault(ad =>
+                        SymbolEqualityComparer.Default.Equals(ad.AttributeClass, propertyAttribute));
+
+                    if (columnAttribute is not null)
+                    {
+                        if (columnAttribute.ConstructorArguments[0].Value is int index)
+                        {
+                            var columnName = columnAttribute.NamedArguments
+                                .FirstOrDefault(a => a.Key == nameof(AvroColumnAttribute.ColumnName))
+                                .Value.Value as string;
+                            var logicalType = columnAttribute.NamedArguments
+                                .FirstOrDefault(a => a.Key == nameof(AvroColumnAttribute.LogicalType))
+                                .Value.Value as string;
+                            var underlyingType = columnAttribute.NamedArguments
+                                .FirstOrDefault(a => a.Key == nameof(AvroColumnAttribute.UnderlyingType))
+                                .Value.Value as string;
+
+                            info.Properties.Add(new(propertySymbol, index, columnName, logicalType, underlyingType));
+                        }
+                    }
+                }
+            }
+
+            yield return info;
+        }
+    }
+
+
+    static string GeneratePartialClass(ClassToGenerate c)
+    {
+        var sb = new StringBuilder();
+        sb.Append($@"// <auto-generated/>
+namespace {c.RowClass.ContainingNamespace.ToDisplayString()}
+{{
+    public partial class {c.RowClass.Name} : Avro.Specific.ISpecificRecord
+    {{
+");
+        if (!c.RowClass.GetMembers().Any(m => m is IPropertySymbol { Name: "Schema" }))
+        {
+            sb.Append($@"
+        private static readonly Avro.Schema ___schema = Avro.Schema.Parse(@""");
+            // schema json goes here
+            sb.Append(BuildSchemaJson(c).Replace("\"", "\"\""));
+
+            sb.Append(@""");
+
+        public Avro.Schema Schema => ___schema;
+");
+        }
+
+
+        sb.Append(@"
+        public void Put(int fieldPos, object fieldValue)
+        {
+            switch (fieldPos, fieldValue)
+            {
+");
+
+        // put method
+        foreach (var property in c.Properties.Where(p => p.PropertySymbol.SetMethod is not null))
+        {
+            sb.Append($@"
+                case({property.Index}, {property.PropertySymbol.Type.ToDisplayString()} ___{property.PropertySymbol.ToDisplayString()}):
+                    ___{property.PropertySymbol.ToDisplayString()} = ___{property.PropertySymbol.ToDisplayString()};
+                    break;
+");
+        }
+
+        sb.Append($@"
+            }}
+        }}
+
+        public object Get(int fieldPos) => fieldPos switch
+        {{
+");
+        // get method
+        foreach (var property in c.Properties.Where(p => p.PropertySymbol.GetMethod is not null))
+        {
+            sb.Append($@"
+            {property.Index} => {property.PropertySymbol.ToDisplayString()},
+");
+        }
+
+        sb.Append($@"
+            _ => throw new System.IndexOutOfRangeException()
+        }};
+    }}
+}}");
+        return sb.ToString();
+    }
+
+    internal static string BuildSchemaJson(ClassToGenerate @class)
+    {
+        var fields = new JsonArray();
+
+        foreach (var property in @class.Properties.OrderBy(p => p.Index))
+        {
+            var typeArray = new JsonArray { "null" };
+            var underlyingType = property.UnderlyingType ??
+                                 property.PropertySymbol.Type.ToDisplayString(NullableFlowState.None);
+
+            if (!string.IsNullOrEmpty(property.LogicalType))
+            {
+                typeArray.Add(new JsonObject
+                {
+                    ["type"] = underlyingType,
+                    ["logicalType"] = property.LogicalType
+                });
+            }
+            else
+            {
+                typeArray.Add(property.UnderlyingType ?? property.PropertySymbol.Type.ToDisplayString().ToLower());
+            }
+
+            fields.Add(new JsonObject
+            {
+                ["name"] = property.ColumnName,
+                ["type"] = typeArray
+            });
+        }
+
+        var schema = new JsonObject
+        {
+            ["type"] = "record",
+            ["name"] = @class.RowClass.Name,
+            ["fields"] = fields
+        };
+
+        return schema.ToJsonString();
+    }
+}
+
+internal record struct ClassToGenerate(INamedTypeSymbol RowClass,
+    List<PropertyMapping> Properties);
+
+internal record struct PropertyMapping(IPropertySymbol PropertySymbol, int Index, string? ColumnName,
+    string? LogicalType, string? UnderlyingType);

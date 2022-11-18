@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvroHelper", "AvroHelper\AvroHelper.csproj", "{6A1593BA-D303-4562-AD1A-71C7B3387C34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerationTests", "GenerationTests\GenerationTests.csproj", "{1CED2673-CFFA-4122-9132-3851B2CECD2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsageTests", "UsageTests\UsageTests.csproj", "{8C70CC41-1663-47F4-92CA-0D41F30EBF3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvroHelper.Generators", "AvroHelper.Generators\AvroHelper.Generators.csproj", "{AD21EC0B-3354-42F4-A6E9-31483F22BE0C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A1593BA-D303-4562-AD1A-71C7B3387C34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A1593BA-D303-4562-AD1A-71C7B3387C34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A1593BA-D303-4562-AD1A-71C7B3387C34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A1593BA-D303-4562-AD1A-71C7B3387C34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CED2673-CFFA-4122-9132-3851B2CECD2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CED2673-CFFA-4122-9132-3851B2CECD2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CED2673-CFFA-4122-9132-3851B2CECD2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CED2673-CFFA-4122-9132-3851B2CECD2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C70CC41-1663-47F4-92CA-0D41F30EBF3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C70CC41-1663-47F4-92CA-0D41F30EBF3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C70CC41-1663-47F4-92CA-0D41F30EBF3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C70CC41-1663-47F4-92CA-0D41F30EBF3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD21EC0B-3354-42F4-A6E9-31483F22BE0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD21EC0B-3354-42F4-A6E9-31483F22BE0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD21EC0B-3354-42F4-A6E9-31483F22BE0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD21EC0B-3354-42F4-A6E9-31483F22BE0C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

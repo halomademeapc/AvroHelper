@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageVersion>1.0.0</PackageVersion>
+        <Title>AvroHelper.Generators</Title>
+        <Authors>Alex Griffith</Authors>
+        <Description>Source generator for mapping Avro rows to basic objects. Install AvroHelper as well.</Description>
+        <LangVersion>latest</LangVersion>
+        <AssemblyName>AvroHelper.Generators</AssemblyName>
+        <RootNamespace>AvroHelper.Generators</RootNamespace>
+        <PackageLicenseUrl>https://github.com/halomademeapc/AvroHelper/blob/main/LICENSE</PackageLicenseUrl>
+        <RepositoryUrl>https://github.com/halomademeapc/AvroHelper</RepositoryUrl>
+        <RepositoryType>Git</RepositoryType>
+        <PackageTags>avro</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.3.1"/>
+        <PackageReference Include="System.Text.Json" Version="6.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\AvroHelper\AvroHelper.csproj"/>
+    </ItemGroup>
+</Project>
