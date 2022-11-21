@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <IncludeBuildOutput>false</IncludeBuildOutput>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>1.0.0-alpha3</PackageVersion>
+        <PackageVersion>1.0.0</PackageVersion>
         <Title>AvroHelper.Generators</Title>
         <Authors>Alex Griffith</Authors>
         <Description>Source generator for mapping Avro rows to basic objects. Install AvroHelper as well.</Description>
