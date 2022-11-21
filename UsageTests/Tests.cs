@@ -1,3 +1,5 @@
+using System.Reflection;
+using Avro;
 using Avro.Specific;
 using AvroHelper;
 
@@ -76,6 +78,15 @@ public class Tests
         entry.Put(6, dt);
         Assert.Equal(dt, entry.Hour);
         Assert.Equal(dt, entry.Get(6));
+    }
+
+    [Fact]
+    public void ShouldParseSchema()
+    {
+        var field = typeof(MeterReadingEntry).GetField("___schemaJson", BindingFlags.NonPublic | BindingFlags.Static);
+        var json = field!.GetValue(null) as string;
+        var schema = Schema.Parse(json);
+        Assert.NotNull(schema);
     }
 }
 

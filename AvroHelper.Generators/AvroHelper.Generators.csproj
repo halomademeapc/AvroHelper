@@ -4,7 +4,7 @@
         <TargetFramework>netstandard2.0</TargetFramework>
         <IncludeBuildOutput>false</IncludeBuildOutput>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>1.0.0</PackageVersion>
+        <PackageVersion>1.0.0-alpha3</PackageVersion>
         <Title>AvroHelper.Generators</Title>
         <Authors>Alex Griffith</Authors>
         <Description>Source generator for mapping Avro rows to basic objects. Install AvroHelper as well.</Description>
@@ -18,15 +18,15 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.3.1"/>
-        <PackageReference Include="System.Text.Json" Version="6.0.0"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.3.1" />
+        <PackageReference Include="System.Text.Json" Version="6.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false"/>
+        <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\AvroHelper\AvroHelper.csproj"/>
+        <ProjectReference Include="..\AvroHelper\AvroHelper.csproj" />
     </ItemGroup>
 </Project>

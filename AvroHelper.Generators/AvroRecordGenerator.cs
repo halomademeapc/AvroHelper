@@ -121,12 +121,13 @@ namespace {c.RowClass.ContainingNamespace.ToDisplayString()}
 ");
         if (!c.RowClass.GetMembers().Any(m => m is IPropertySymbol { Name: "Schema" }))
         {
-            sb.Append($@"
-        private static readonly Avro.Schema ___schema = Avro.Schema.Parse(@""");
-            // schema json goes here
+            sb.Append(@"
+        private const string ___schemaJson = @""");
             sb.Append(BuildSchemaJson(c).Replace("\"", "\"\""));
+            sb.Append(@""";");
 
-            sb.Append(@""");
+            sb.Append($@"
+        private static readonly Avro.Schema ___schema = Avro.Schema.Parse(___schemaJson);
 
         public Avro.Schema Schema => ___schema;
 ");
@@ -144,7 +145,7 @@ namespace {c.RowClass.ContainingNamespace.ToDisplayString()}
         foreach (var property in c.Properties.Where(p => p.PropertySymbol.SetMethod is not null))
         {
             var localVariableName = $"___{property.PropertySymbol.Name}";
-            var typeName = property.PropertySymbol.Type.ToDisplayString();
+            var typeName = property.PropertySymbol.Type.ToDisplayString(NullableFlowState.None);
             typeName = typeName.EndsWith("?") ? typeName.Substring(default, typeName.Length - 1) : typeName;
             sb.Append($@"
                 case({property.Index}, {typeName} {localVariableName}):
@@ -183,6 +184,10 @@ namespace {c.RowClass.ContainingNamespace.ToDisplayString()}
             var typeArray = new JsonArray { "null" };
             var underlyingType = property.UnderlyingType ??
                                  property.PropertySymbol.Type.ToDisplayString(NullableFlowState.None);
+            underlyingType = underlyingType.EndsWith("?")
+                ? underlyingType.Substring(default, underlyingType.Length - 1)
+                : underlyingType;
+            underlyingType = underlyingType.Replace("?", "");
 
             if (!string.IsNullOrEmpty(property.LogicalType))
             {
@@ -194,7 +199,7 @@ namespace {c.RowClass.ContainingNamespace.ToDisplayString()}
             }
             else
             {
-                typeArray.Add(property.UnderlyingType ?? property.PropertySymbol.Type.ToDisplayString().ToLower());
+                typeArray.Add(underlyingType);
             }
 
             fields.Add(new JsonObject
