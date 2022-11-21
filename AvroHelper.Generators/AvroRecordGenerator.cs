@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Nodes;
@@ -14,13 +13,13 @@ namespace AvroHelper.Generators;
 [Generator]
 public class AvroRecordGenerator : IIncrementalGenerator
 {
-    private static readonly Type ClassAttributeType = typeof(GeneratedAvroRecordAttribute);
-    private static readonly Type PropertyAttributeType = typeof(AvroColumnAttribute);
+    private const string ClassAttributeType = "AvroHelper.GeneratedAvroRecordAttribute";
+    private const string PropertyAttributeType = "AvroHelper.AvroColumnAttribute";
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         var classDeclarations = context.SyntaxProvider.ForAttributeWithMetadataName(
-            ClassAttributeType.FullName!,
+            ClassAttributeType,
             static (s, _) => s is ClassDeclarationSyntax c && c.AttributeLists.Any(),
             static (ctx, _) => (ClassDeclarationSyntax)ctx.TargetNode);
 
@@ -67,11 +66,10 @@ public class AvroRecordGenerator : IIncrementalGenerator
         IEnumerable<ClassDeclarationSyntax> classes,
         SourceProductionContext ctx)
     {
-        var propertyAttribute = compilation.GetTypeByMetadataName(PropertyAttributeType.FullName!);
+        var propertyAttribute = compilation.GetTypeByMetadataName(PropertyAttributeType);
 
         foreach (var @class in classes)
         {
-            Debug.WriteLine($"Checking class {@class}");
             ctx.CancellationToken.ThrowIfCancellationRequested();
 
             var semanticModel = compilation.GetSemanticModel(@class.SyntaxTree);
@@ -145,11 +143,13 @@ namespace {c.RowClass.ContainingNamespace.ToDisplayString()}
         // put method
         foreach (var property in c.Properties.Where(p => p.PropertySymbol.SetMethod is not null))
         {
+            var localVariableName = $"___{property.PropertySymbol.Name}";
+            var typeName = property.PropertySymbol.Type.ToDisplayString();
+            typeName = typeName.EndsWith("?") ? typeName.Substring(default, typeName.Length - 1) : typeName;
             sb.Append($@"
-                case({property.Index}, {property.PropertySymbol.Type.ToDisplayString()} ___{property.PropertySymbol.ToDisplayString()}):
-                    ___{property.PropertySymbol.ToDisplayString()} = ___{property.PropertySymbol.ToDisplayString()};
-                    break;
-");
+                case({property.Index}, {typeName} {localVariableName}):
+                    {property.PropertySymbol.Name} = {localVariableName};
+                    break;");
         }
 
         sb.Append($@"
@@ -163,8 +163,7 @@ namespace {c.RowClass.ContainingNamespace.ToDisplayString()}
         foreach (var property in c.Properties.Where(p => p.PropertySymbol.GetMethod is not null))
         {
             sb.Append($@"
-            {property.Index} => {property.PropertySymbol.ToDisplayString()},
-");
+            {property.Index} => {property.PropertySymbol.Name},");
         }
 
         sb.Append($@"

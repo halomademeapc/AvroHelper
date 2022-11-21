@@ -1,19 +1,25 @@
-using System.ComponentModel.DataAnnotations.Schema;
+using Avro.Specific;
 using AvroHelper;
-using BigQueryMapping;
-using UsageTests.Fake.Namespace;
 
 namespace UsageTests;
 
 public class Tests
 {
     [Fact]
-    public void ShouldHaveMethod()
+    public void ShouldHaveGet()
     {
-        var method = typeof(MeterReadingEntry).GetMethod("FromBigQueryRow");
+        var method = typeof(MeterReadingEntry).GetMethod("Get");
         Assert.NotNull(method);
-        Assert.Equal(typeof(MeterReadingEntry), method!.ReturnType);
-        Assert.True(method!.IsStatic);
+        Assert.False(method!.IsStatic);
+    }
+    
+    [Fact]
+    public void ShouldHavePut()
+    {
+        var method = typeof(MeterReadingEntry).GetMethod("Put");
+        Assert.NotNull(method);
+        Assert.Equal(typeof(void), method!.ReturnType);
+        Assert.False(method!.IsStatic);
     }
 
     [Fact]
@@ -21,8 +27,55 @@ public class Tests
     {
         var @interfaces = typeof(MeterReadingEntry).GetInterfaces();
         var matchingInterface =
-            @interfaces.FirstOrDefault(i => i.FullName!.StartsWith("BigQueryMapping.IBigQueryGenerated"));
+            @interfaces.FirstOrDefault(i => i == typeof(ISpecificRecord));
         Assert.NotNull(@matchingInterface);
+    }
+
+    [Theory]
+    [InlineData(7)]
+    [InlineData(null)]
+    public void ShouldStoreDouble(double? value)
+    {
+        var entry = new MeterReadingEntry();
+        entry.Put(5, value);
+        Assert.Equal(value, entry.FlowTime);
+        Assert.Equal(value, entry.Get(5));
+    }
+    
+    [Theory]
+    [InlineData("potato")]
+    [InlineData("")]
+    [InlineData(null)]
+    public void ShouldStoreString(string? value)
+    {
+        var entry = new MeterReadingEntry();
+        entry.Put(3, value);
+        Assert.Equal(value, entry.SerialNumber);
+        Assert.Equal(value, entry.Get(3));
+    }
+    
+    [Theory]
+    [InlineData(735)]
+    [InlineData(0)]
+    [InlineData(null)]
+    public void ShouldStoreLong(long? value)
+    {
+        var entry = new MeterReadingEntry();
+        entry.Put(26, value);
+        Assert.Equal(value, entry.HoursRunningMoreThan55Minutes);
+        Assert.Equal(value, entry.Get(26));
+    }
+    
+    [Theory]
+    [InlineData("2021-05-08")]
+    [InlineData(null)]
+    public void ShouldStoreDateTime(string? value)
+    {
+        DateTime? dt = DateTime.TryParse(value, out var parsed) ? parsed : null;
+        var entry = new MeterReadingEntry();
+        entry.Put(6, dt);
+        Assert.Equal(dt, entry.Hour);
+        Assert.Equal(dt, entry.Get(6));
     }
 }
 

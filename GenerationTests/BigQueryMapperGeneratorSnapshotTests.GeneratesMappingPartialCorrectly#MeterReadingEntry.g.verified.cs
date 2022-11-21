@@ -14,222 +14,152 @@ namespace Fake.Namespace
             switch (fieldPos, fieldValue)
             {
 
-                case(0, string? ___Fake.Namespace.MeterReadingEntry.PropertyId):
-                    ___Fake.Namespace.MeterReadingEntry.PropertyId = ___Fake.Namespace.MeterReadingEntry.PropertyId;
+                case(0, string ___PropertyId):
+                    PropertyId = ___PropertyId;
                     break;
-
-                case(1, string? ___Fake.Namespace.MeterReadingEntry.RentRollId):
-                    ___Fake.Namespace.MeterReadingEntry.RentRollId = ___Fake.Namespace.MeterReadingEntry.RentRollId;
+                case(1, string ___RentRollId):
+                    RentRollId = ___RentRollId;
                     break;
-
-                case(3, string? ___Fake.Namespace.MeterReadingEntry.SerialNumber):
-                    ___Fake.Namespace.MeterReadingEntry.SerialNumber = ___Fake.Namespace.MeterReadingEntry.SerialNumber;
+                case(3, string ___SerialNumber):
+                    SerialNumber = ___SerialNumber;
                     break;
-
-                case(2, double? ___Fake.Namespace.MeterReadingEntry.Gallons):
-                    ___Fake.Namespace.MeterReadingEntry.Gallons = ___Fake.Namespace.MeterReadingEntry.Gallons;
+                case(2, double ___Gallons):
+                    Gallons = ___Gallons;
                     break;
-
-                case(4, double? ___Fake.Namespace.MeterReadingEntry.Events):
-                    ___Fake.Namespace.MeterReadingEntry.Events = ___Fake.Namespace.MeterReadingEntry.Events;
+                case(4, double ___Events):
+                    Events = ___Events;
                     break;
-
-                case(5, double? ___Fake.Namespace.MeterReadingEntry.FlowTime):
-                    ___Fake.Namespace.MeterReadingEntry.FlowTime = ___Fake.Namespace.MeterReadingEntry.FlowTime;
+                case(5, double ___FlowTime):
+                    FlowTime = ___FlowTime;
                     break;
-
-                case(6, System.DateTime? ___Fake.Namespace.MeterReadingEntry.Hour):
-                    ___Fake.Namespace.MeterReadingEntry.Hour = ___Fake.Namespace.MeterReadingEntry.Hour;
+                case(6, System.DateTime ___Hour):
+                    Hour = ___Hour;
                     break;
-
-                case(7, long? ___Fake.Namespace.MeterReadingEntry.RunningHours):
-                    ___Fake.Namespace.MeterReadingEntry.RunningHours = ___Fake.Namespace.MeterReadingEntry.RunningHours;
+                case(7, long ___RunningHours):
+                    RunningHours = ___RunningHours;
                     break;
-
-                case(8, string? ___Fake.Namespace.MeterReadingEntry.CatchupFlag):
-                    ___Fake.Namespace.MeterReadingEntry.CatchupFlag = ___Fake.Namespace.MeterReadingEntry.CatchupFlag;
+                case(8, string ___CatchupFlag):
+                    CatchupFlag = ___CatchupFlag;
                     break;
-
-                case(9, string? ___Fake.Namespace.MeterReadingEntry.LeakStatus):
-                    ___Fake.Namespace.MeterReadingEntry.LeakStatus = ___Fake.Namespace.MeterReadingEntry.LeakStatus;
+                case(9, string ___LeakStatus):
+                    LeakStatus = ___LeakStatus;
                     break;
-
-                case(10, string? ___Fake.Namespace.MeterReadingEntry.LeakDetails):
-                    ___Fake.Namespace.MeterReadingEntry.LeakDetails = ___Fake.Namespace.MeterReadingEntry.LeakDetails;
+                case(10, string ___LeakDetails):
+                    LeakDetails = ___LeakDetails;
                     break;
-
-                case(11, double? ___Fake.Namespace.MeterReadingEntry.ToiletLeak):
-                    ___Fake.Namespace.MeterReadingEntry.ToiletLeak = ___Fake.Namespace.MeterReadingEntry.ToiletLeak;
+                case(11, double ___ToiletLeak):
+                    ToiletLeak = ___ToiletLeak;
                     break;
-
-                case(12, double? ___Fake.Namespace.MeterReadingEntry.MiscellaneousLeak):
-                    ___Fake.Namespace.MeterReadingEntry.MiscellaneousLeak = ___Fake.Namespace.MeterReadingEntry.MiscellaneousLeak;
+                case(12, double ___MiscellaneousLeak):
+                    MiscellaneousLeak = ___MiscellaneousLeak;
                     break;
-
-                case(13, double? ___Fake.Namespace.MeterReadingEntry.DailyGallonsLeaked):
-                    ___Fake.Namespace.MeterReadingEntry.DailyGallonsLeaked = ___Fake.Namespace.MeterReadingEntry.DailyGallonsLeaked;
+                case(13, double ___DailyGallonsLeaked):
+                    DailyGallonsLeaked = ___DailyGallonsLeaked;
                     break;
-
-                case(14, string? ___Fake.Namespace.MeterReadingEntry.DailyLeakStatus):
-                    ___Fake.Namespace.MeterReadingEntry.DailyLeakStatus = ___Fake.Namespace.MeterReadingEntry.DailyLeakStatus;
+                case(14, string ___DailyLeakStatus):
+                    DailyLeakStatus = ___DailyLeakStatus;
                     break;
-
-                case(15, double? ___Fake.Namespace.MeterReadingEntry.LeakGallons22Hours):
-                    ___Fake.Namespace.MeterReadingEntry.LeakGallons22Hours = ___Fake.Namespace.MeterReadingEntry.LeakGallons22Hours;
+                case(15, double ___LeakGallons22Hours):
+                    LeakGallons22Hours = ___LeakGallons22Hours;
                     break;
-
-                case(16, System.DateTime? ___Fake.Namespace.MeterReadingEntry.DateLeakStarted):
-                    ___Fake.Namespace.MeterReadingEntry.DateLeakStarted = ___Fake.Namespace.MeterReadingEntry.DateLeakStarted;
+                case(16, System.DateTime ___DateLeakStarted):
+                    DateLeakStarted = ___DateLeakStarted;
                     break;
-
-                case(17, double? ___Fake.Namespace.MeterReadingEntry.GallonsSinceLastLeak):
-                    ___Fake.Namespace.MeterReadingEntry.GallonsSinceLastLeak = ___Fake.Namespace.MeterReadingEntry.GallonsSinceLastLeak;
+                case(17, double ___GallonsSinceLastLeak):
+                    GallonsSinceLastLeak = ___GallonsSinceLastLeak;
                     break;
-
-                case(18, System.DateTime? ___Fake.Namespace.MeterReadingEntry.LastLeakingAt):
-                    ___Fake.Namespace.MeterReadingEntry.LastLeakingAt = ___Fake.Namespace.MeterReadingEntry.LastLeakingAt;
+                case(18, System.DateTime ___LastLeakingAt):
+                    LastLeakingAt = ___LastLeakingAt;
                     break;
-
-                case(19, string? ___Fake.Namespace.MeterReadingEntry.DeveloperName):
-                    ___Fake.Namespace.MeterReadingEntry.DeveloperName = ___Fake.Namespace.MeterReadingEntry.DeveloperName;
+                case(19, string ___DeveloperName):
+                    DeveloperName = ___DeveloperName;
                     break;
-
-                case(20, string? ___Fake.Namespace.MeterReadingEntry.GpdFilter):
-                    ___Fake.Namespace.MeterReadingEntry.GpdFilter = ___Fake.Namespace.MeterReadingEntry.GpdFilter;
+                case(20, string ___GpdFilter):
+                    GpdFilter = ___GpdFilter;
                     break;
-
-                case(21, string? ___Fake.Namespace.MeterReadingEntry.FlowTimeFormatted):
-                    ___Fake.Namespace.MeterReadingEntry.FlowTimeFormatted = ___Fake.Namespace.MeterReadingEntry.FlowTimeFormatted;
+                case(21, string ___FlowTimeFormatted):
+                    FlowTimeFormatted = ___FlowTimeFormatted;
                     break;
-
-                case(22, string? ___Fake.Namespace.MeterReadingEntry.RanMoreThan22Hours):
-                    ___Fake.Namespace.MeterReadingEntry.RanMoreThan22Hours = ___Fake.Namespace.MeterReadingEntry.RanMoreThan22Hours;
+                case(22, string ___RanMoreThan22Hours):
+                    RanMoreThan22Hours = ___RanMoreThan22Hours;
                     break;
-
-                case(23, long? ___Fake.Namespace.MeterReadingEntry.HourlyReadingStatus):
-                    ___Fake.Namespace.MeterReadingEntry.HourlyReadingStatus = ___Fake.Namespace.MeterReadingEntry.HourlyReadingStatus;
+                case(23, long ___HourlyReadingStatus):
+                    HourlyReadingStatus = ___HourlyReadingStatus;
                     break;
-
-                case(24, long? ___Fake.Namespace.MeterReadingEntry.DaysRepeating):
-                    ___Fake.Namespace.MeterReadingEntry.DaysRepeating = ___Fake.Namespace.MeterReadingEntry.DaysRepeating;
+                case(24, long ___DaysRepeating):
+                    DaysRepeating = ___DaysRepeating;
                     break;
-
-                case(25, string? ___Fake.Namespace.MeterReadingEntry.UnitDetails):
-                    ___Fake.Namespace.MeterReadingEntry.UnitDetails = ___Fake.Namespace.MeterReadingEntry.UnitDetails;
+                case(25, string ___UnitDetails):
+                    UnitDetails = ___UnitDetails;
                     break;
-
-                case(26, long? ___Fake.Namespace.MeterReadingEntry.HoursRunningMoreThan55Minutes):
-                    ___Fake.Namespace.MeterReadingEntry.HoursRunningMoreThan55Minutes = ___Fake.Namespace.MeterReadingEntry.HoursRunningMoreThan55Minutes;
+                case(26, long ___HoursRunningMoreThan55Minutes):
+                    HoursRunningMoreThan55Minutes = ___HoursRunningMoreThan55Minutes;
                     break;
-
-                case(27, double? ___Fake.Namespace.MeterReadingEntry.LeakGallons):
-                    ___Fake.Namespace.MeterReadingEntry.LeakGallons = ___Fake.Namespace.MeterReadingEntry.LeakGallons;
+                case(27, double ___LeakGallons):
+                    LeakGallons = ___LeakGallons;
                     break;
-
-                case(28, double? ___Fake.Namespace.MeterReadingEntry.WarningLeakGallons):
-                    ___Fake.Namespace.MeterReadingEntry.WarningLeakGallons = ___Fake.Namespace.MeterReadingEntry.WarningLeakGallons;
+                case(28, double ___WarningLeakGallons):
+                    WarningLeakGallons = ___WarningLeakGallons;
                     break;
-
-                case(29, double? ___Fake.Namespace.MeterReadingEntry.UrgentLeakGallons):
-                    ___Fake.Namespace.MeterReadingEntry.UrgentLeakGallons = ___Fake.Namespace.MeterReadingEntry.UrgentLeakGallons;
+                case(29, double ___UrgentLeakGallons):
+                    UrgentLeakGallons = ___UrgentLeakGallons;
                     break;
-
-                case(30, string? ___Fake.Namespace.MeterReadingEntry.LatestLeakStatus):
-                    ___Fake.Namespace.MeterReadingEntry.LatestLeakStatus = ___Fake.Namespace.MeterReadingEntry.LatestLeakStatus;
+                case(30, string ___LatestLeakStatus):
+                    LatestLeakStatus = ___LatestLeakStatus;
                     break;
-
-                case(31, string? ___Fake.Namespace.MeterReadingEntry.TimeSinceLastReading):
-                    ___Fake.Namespace.MeterReadingEntry.TimeSinceLastReading = ___Fake.Namespace.MeterReadingEntry.TimeSinceLastReading;
+                case(31, string ___TimeSinceLastReading):
+                    TimeSinceLastReading = ___TimeSinceLastReading;
                     break;
-
-                case(32, string? ___Fake.Namespace.MeterReadingEntry.DpoeHourlyEvents):
-                    ___Fake.Namespace.MeterReadingEntry.DpoeHourlyEvents = ___Fake.Namespace.MeterReadingEntry.DpoeHourlyEvents;
+                case(32, string ___DpoeHourlyEvents):
+                    DpoeHourlyEvents = ___DpoeHourlyEvents;
                     break;
-
-                case(33, string? ___Fake.Namespace.MeterReadingEntry.DpoeHourlyGallons):
-                    ___Fake.Namespace.MeterReadingEntry.DpoeHourlyGallons = ___Fake.Namespace.MeterReadingEntry.DpoeHourlyGallons;
+                case(33, string ___DpoeHourlyGallons):
+                    DpoeHourlyGallons = ___DpoeHourlyGallons;
                     break;
-
-                case(34, string? ___Fake.Namespace.MeterReadingEntry.DpoeHourlyFlowTime):
-                    ___Fake.Namespace.MeterReadingEntry.DpoeHourlyFlowTime = ___Fake.Namespace.MeterReadingEntry.DpoeHourlyFlowTime;
+                case(34, string ___DpoeHourlyFlowTime):
+                    DpoeHourlyFlowTime = ___DpoeHourlyFlowTime;
                     break;
-
             }
         }
 
         public object Get(int fieldPos) => fieldPos switch
         {
 
-            0 => Fake.Namespace.MeterReadingEntry.PropertyId,
-
-            1 => Fake.Namespace.MeterReadingEntry.RentRollId,
-
-            3 => Fake.Namespace.MeterReadingEntry.SerialNumber,
-
-            2 => Fake.Namespace.MeterReadingEntry.Gallons,
-
-            4 => Fake.Namespace.MeterReadingEntry.Events,
-
-            5 => Fake.Namespace.MeterReadingEntry.FlowTime,
-
-            6 => Fake.Namespace.MeterReadingEntry.Hour,
-
-            7 => Fake.Namespace.MeterReadingEntry.RunningHours,
-
-            8 => Fake.Namespace.MeterReadingEntry.CatchupFlag,
-
-            9 => Fake.Namespace.MeterReadingEntry.LeakStatus,
-
-            10 => Fake.Namespace.MeterReadingEntry.LeakDetails,
-
-            11 => Fake.Namespace.MeterReadingEntry.ToiletLeak,
-
-            12 => Fake.Namespace.MeterReadingEntry.MiscellaneousLeak,
-
-            13 => Fake.Namespace.MeterReadingEntry.DailyGallonsLeaked,
-
-            14 => Fake.Namespace.MeterReadingEntry.DailyLeakStatus,
-
-            15 => Fake.Namespace.MeterReadingEntry.LeakGallons22Hours,
-
-            16 => Fake.Namespace.MeterReadingEntry.DateLeakStarted,
-
-            17 => Fake.Namespace.MeterReadingEntry.GallonsSinceLastLeak,
-
-            18 => Fake.Namespace.MeterReadingEntry.LastLeakingAt,
-
-            19 => Fake.Namespace.MeterReadingEntry.DeveloperName,
-
-            20 => Fake.Namespace.MeterReadingEntry.GpdFilter,
-
-            21 => Fake.Namespace.MeterReadingEntry.FlowTimeFormatted,
-
-            22 => Fake.Namespace.MeterReadingEntry.RanMoreThan22Hours,
-
-            23 => Fake.Namespace.MeterReadingEntry.HourlyReadingStatus,
-
-            24 => Fake.Namespace.MeterReadingEntry.DaysRepeating,
-
-            25 => Fake.Namespace.MeterReadingEntry.UnitDetails,
-
-            26 => Fake.Namespace.MeterReadingEntry.HoursRunningMoreThan55Minutes,
-
-            27 => Fake.Namespace.MeterReadingEntry.LeakGallons,
-
-            28 => Fake.Namespace.MeterReadingEntry.WarningLeakGallons,
-
-            29 => Fake.Namespace.MeterReadingEntry.UrgentLeakGallons,
-
-            30 => Fake.Namespace.MeterReadingEntry.LatestLeakStatus,
-
-            31 => Fake.Namespace.MeterReadingEntry.TimeSinceLastReading,
-
-            32 => Fake.Namespace.MeterReadingEntry.DpoeHourlyEvents,
-
-            33 => Fake.Namespace.MeterReadingEntry.DpoeHourlyGallons,
-
-            34 => Fake.Namespace.MeterReadingEntry.DpoeHourlyFlowTime,
-
+            0 => PropertyId,
+            1 => RentRollId,
+            3 => SerialNumber,
+            2 => Gallons,
+            4 => Events,
+            5 => FlowTime,
+            6 => Hour,
+            7 => RunningHours,
+            8 => CatchupFlag,
+            9 => LeakStatus,
+            10 => LeakDetails,
+            11 => ToiletLeak,
+            12 => MiscellaneousLeak,
+            13 => DailyGallonsLeaked,
+            14 => DailyLeakStatus,
+            15 => LeakGallons22Hours,
+            16 => DateLeakStarted,
+            17 => GallonsSinceLastLeak,
+            18 => LastLeakingAt,
+            19 => DeveloperName,
+            20 => GpdFilter,
+            21 => FlowTimeFormatted,
+            22 => RanMoreThan22Hours,
+            23 => HourlyReadingStatus,
+            24 => DaysRepeating,
+            25 => UnitDetails,
+            26 => HoursRunningMoreThan55Minutes,
+            27 => LeakGallons,
+            28 => WarningLeakGallons,
+            29 => UrgentLeakGallons,
+            30 => LatestLeakStatus,
+            31 => TimeSinceLastReading,
+            32 => DpoeHourlyEvents,
+            33 => DpoeHourlyGallons,
+            34 => DpoeHourlyFlowTime,
             _ => throw new System.IndexOutOfRangeException()
         };
     }
